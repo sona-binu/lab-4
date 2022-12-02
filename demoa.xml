@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<course>
+    <student>
+         <name>ANNA</name>
+         <fid>100</fid>
+         <femail>anna.danties@gmail.com</femail>
+    </student>
+    <student>
+        <name>Sona</name>
+        <fid>101</fid>fid>
+        <femail>sona@gmail.com</femail>
+    </student>
+    <student>
+        <name>Ashitha</name>
+        <fid>102</fid>
+        <femail>ashitha@gmail.com</femail>
+    </student>
+    <student>
+        <name>Archana</name>
+        <fid>103</fid>
+        <femail>archana@gmail.com</femail>
+    </student>
+</course>

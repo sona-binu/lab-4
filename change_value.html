@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="./domparser.css" type="text/css"/>
+</head>
+<body style="background:teal;">
+    <h1 style="text-align:center;">Faculty Mangement</h1>
+    <div class="contain">
+        <br/>
+        <div class="box">
+            <h1>Change</h1>
+            <p id="demo1"></p>
+            <span>Edited Value : </span>
+            <span id="demo2"></span>
+        </div>
+        
+        <div class="box1">
+            <h1>Deleting</h1>
+            <p id="demo3"></p>
+        </div>
+        <div class="box2">
+            <h1>Traverse</h1>
+            <p id="demo4"></p>
+        </div>
+        <div class="box3">
+            <h1>Add</h1>
+            <p id="demo5"></p>
+        </div>
+    </div>
+<script>
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        editing(this);
+        removing(this);
+        traverse(this);
+        add(this);
+    }
+};
+xhttp.open("GET", "Demoa.xml", true);
+xhttp.send();
+
+function editing(xml) {
+    var xmlDoc = xml.responseXML;
+    var x;
+    x = xmlDoc.getElementsByTagName("name")[0].childNodes[0];
+    document.getElementById("demo1").innerHTML = x.nodeValue;
+    x.nodeValue = "Apoorva";
+    x = xmlDoc.getElementsByTagName("name")[0].childNodes[0];
+    document.getElementById("demo2").innerHTML = x.nodeValue;
+}
+function removing(xml) {
+    var xmlDoc = xml.responseXML;
+    var root = xmlDoc.documentElement;
+    var currNode = root.childNodes[1];
+    removedNode = currNode.removeChild(currNode.childNodes[1]);
+    document.getElementById("demo3").innerHTML =
+    "Removed node:- " + removedNode.nodeName;
+    
+}
+function traverse(xml) {
+    var x, i, xmlDoc, txt;
+    xmlDoc = xml.responseXML;
+    txt = "";
+    count=0;
+    x = xmlDoc.documentElement.childNodes;
+    for (i = 0; i < x.length; i++) { 
+        if (x[i].nodeType == 1) {
+            txt += x[i].nodeName + "<br>";
+            count=count+1;
+        }
+    }
+    final = txt + "Nodes Traversed:-"  + count;
+    document.getElementById("demo4").innerHTML = final; 
+}
+function add(xml) {
+    var x, y, z, i, xlen, yLen, newel, newText, xmlDoc, txt;
+    xmlDoc = xml.responseXML;
+    txt = "";
+    x = xmlDoc.getElementsByTagName("student");
+    xlen = x.length;
+    for (i = 0; i < xlen; i++) { 
+        newel = xmlDoc.createElement("department");
+        newText = xmlDoc.createTextNode("cs");
+        newel.appendChild(newText);
+        x[i].appendChild(newel);
+    }
+    y = xmlDoc.getElementsByTagName("name");
+    yLen = y.length
+    z = xmlDoc.getElementsByTagName("department");
+    for (i = 0; i < yLen; i++) { 
+        txt += y[i].childNodes[0].nodeValue + " in " + z[i].childNodes[0].nodeValue + " dept" +"<br>";
+    }
+    document.getElementById("demo5").innerHTML = txt;
+}
+</script>
+</body>
+</html>
